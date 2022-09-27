@@ -1,0 +1,313 @@
+﻿@model Tuple<IEnumerable<chartDonantVM>,IEnumerable<Testimonial>>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_LayoutDashbord.cshtml";
+}
+
+@*<h1>Index Admin :: @User.Identity.Name   :::  
+:: Role @User.FindFirst(claim=>claim.Type == System.Security.Claims.ClaimTypes.Role).Value  </h1>
+Role:IS Admin @User.IsInRole("Admin")*@
+
+
+<!-- [ breadcrumb ] end -->
+<div class="main-body">
+    <div class="page-wrapper">
+        <!-- [ Main Content ] start -->
+        <div class="row">
+            <!--[ Monthly  sales section ] starts-->
+            <div class="col-md-6 col-xl-6">
+                <div class="card Monthly-sales">
+                    <div class="card-block">
+                        <h6 class="mb-4">Last Monthly Sales</h6>
+                        <div class="row d-flex align-items-center">
+                            <div class="col-9">
+                                <h3 class="f-w-300 d-flex align-items-center  m-b-0"><i class="feather icon-arrow-down text-c-red f-30 m-r-10"></i>$ @ViewBag.amountLastMonth</h3>
+                            </div>
+                            <div class="col-3 text-right">
+                                <p class="m-b-0">@(((decimal)ViewBag.amountLastMonth / 10000 ).ToString("0.00%") )</p>
+                            </div>
+                        </div>
+                        <div class="progress m-t-30" style="height: 7px;">
+                            <div class="progress-bar progress-c-theme2" role="progressbar" style="width: @(((decimal)ViewBag.amountLastMonth / 10000 ).ToString("0.00%") );" aria-valuenow="35" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--[ Monthly  sales section ] end-->
+            <!--[ year  sales section ] starts-->
+            <div class="col-md-12 col-xl-6">
+                <div class="card yearly-sales">
+                    <div class="card-block">
+                        <h6 class="mb-4">Last Year Sales</h6>
+                        <div class="row d-flex align-items-center">
+                            <div class="col-9">
+                                <h3 class="f-w-300 d-flex align-items-center  m-b-0"><i class="feather icon-arrow-up text-c-green f-30 m-r-10"></i>$ @ViewBag.amountLastYear</h3>
+                            </div>
+                            <div class="col-3 text-right">
+                                <p class="m-b-0">@(((decimal)ViewBag.amountLastYear / 10000 ).ToString("0.00%") )</p>
+                            </div>
+                        </div>
+                        <div class="progress m-t-30" style="height: 7px;">
+                            <div class="progress-bar progress-c-theme" role="progressbar" style="width: @(((decimal)ViewBag.amountLastYear / 10000 ).ToString("0.00%") );" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!--[matireal section] start-->
+            <div class="col-md-6 col-xl-4">
+                <div class="card card-social">
+                    <div class="card-block border-bottom">
+                        <div class="row align-items-center justify-content-center">
+                            <div class="col-auto">
+                                                    
+                                <i class="fa fa-users text-c-blue f-36" aria-hidden="true"></i>
+                            </div>
+                            <div class="col text-right">
+                                <h3>@ViewBag.totalCustomers</h3>
+                                <h5 class="text-c-blue mb-0"><span class="text-muted">Total Users</span></h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12 col-xl-4">
+                <div class="card card-social">
+                    <div class="card-block border-bottom">
+                        <div class="row align-items-center justify-content-center">
+                            <div class="col-auto">
+                                <i class="fas fa-store text-primary f-36"></i>
+                            </div>
+                            <div class="col text-right">
+                                <h3>@ViewBag.totalStors</h3>
+                                <h5 class="text-c-green mb-0"> <span class="text-muted">Total Stors</span></h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-xl-4">
+                <div class="card card-social">
+                    <div class="card-block border-bottom">
+                        <div class="row align-items-center justify-content-center">
+                            <div class="col-auto">
+                                <i class="fa-brands fa-product-hunt text-c-red f-36"></i>
+                            </div>
+                            <div class="col text-right">
+                                <h3>@ViewBag.totalProducts</h3>
+                                <h5 class="text-c-purple mb-0"><span class="text-muted">Total Products</span></h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--[social-media section] end-->
+            <!-- [ Main Charts ] start -->
+            <div class="col-xl-6">
+                <div class="text-center">
+                    <h4>Total Pay For Each Store</h4>
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="chart">
+                                <canvas id="doughnutchart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-6">
+                <div class="text-center">
+                    <h4 c>Bar Total Counts </h4>
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="chart">
+                                <canvas id="barchart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- [ Morris Chart ] end -->
+        <!-- [ Main Charts ] end -->
+
+            <!--[ Recent Users ] start-->
+            <div class="col-xl-12 col-md-6">
+                <div class="card Recent-Users">
+                    <div class="card-header">
+                        <h5>Latest Testimaonial</h5>
+                    </div>
+                    <div class="card-block px-0 py-3">
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <tbody>
+                                    @foreach (var test in Model.Item2)
+                                   {
+                                       <tr class="unread">
+                                        <td><img class="rounded-circle" style="width:40px;" src=@Url.Content("~/Images/"+test.Customer.Image) alt="activity-user"></td>
+                                        <td>
+                                            <h6 class="mb-1">@test.Customer.FullName</h6>
+                                        </td>
+                                        <td>
+                                            <h6 class="text-muted">
+                                                    @if (test.Approved == 1)
+                                                    {
+                                                        <i class="fas fa-circle text-c-green f-10 m-r-15"></i>
+                                                    }
+                                                    else
+                                                    {
+                                                        <i class="fas fa-circle text-c-red f-10 m-r-15"></i>
+                                                    }
+                                                </h6>
+                                        </td>
+                                        <td>
+                                            <form asp-controller="Admin" asp-action="ApproveOrRejectTestimonial" method="post" class="d-inline-flex">
+                                                <input type="hidden" asp-for="@test.Id" name="testiId" />
+                                                <input type="hidden" asp-for="@test.Approved" name="approved" />
+                                                <button type="submit" onclick="confirm(`Ary You Sure !`)"  class="linkControle lable @(test.Approved != 1? "theme-bg2": "theme-bg")  text-white f-12" style="border:none;"> 
+                                                    @if(test.Approved != 1)
+                                                    {
+                                                        <i class="fa fa-check" aria-hidden="true"></i>
+                                                    }
+                                                    else
+                                                    {
+                                                        <i class="fa fa-times" aria-hidden="true"></i>
+                                                    }
+
+                                                </button>
+                                            </form>
+                                            <form asp-controller="Admin" asp-action="DeleteTestimonials" method="post" class="d-inline-flex">
+                                                <input type="hidden" asp-for="@test.Id" name="testiId" />
+                                                <button type="submit" onclick="confirm(`Ary You Sure !`)"  class="linkControle lable bg-danger text-white f-12" style="border:none;"> 
+                                                    <i class="fa fa-trash-o" aria-hidden="true"></i> 
+                                                </button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                   }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--[ Recent Users ] end-->
+
+        </div>
+        <!-- [ Main Content ] end -->
+    </div>
+</div>
+
+
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.min.js"></script>
+
+<script>
+    // Dounat Chart
+    var doughnutchartCanvas = document.getElementById("doughnutchart");
+    var store = [];
+    var totalCost = [];
+        @if(Model.Item1.Count() > 0)
+        @foreach(var item in Model.Item1)
+        {
+            @:store.push('@item.storeName');
+            @:totalCost.push(@item.totalCost);
+        }
+    var doughnutChart = new Chart(doughnutchartCanvas, {
+        type: 'doughnut',
+        data: {
+            labels: store,
+        datasets: [{
+            data: totalCost,
+            borderWidth: 0,
+            backgroundColor: [
+                'rgb(255, 99, 132)',
+                'rgb(54, 162, 235)',
+                'rgb(157, 230, 41)',
+                'rgb(41, 224, 230)',
+                'rgb(255, 255, 0)' ,
+                'rgb(14, 255, 14)' ,
+                'rgb(21, 234, 12)' ,
+                'rgb(134, 145, 24)' ,
+            ],
+            hoverBackgroundColor: [
+                'rgb(255, 99, 132)',
+                'rgb(54, 162, 235)',
+                'rgb(157, 230, 41)',
+                'rgb(41, 224, 230)',
+                'rgb(255, 255, 0)' ,
+                'rgb(14, 255, 14)' ,
+                'rgb(21, 234, 12)' ,
+                'rgb(134, 145, 24)' ,
+            ]
+        }]
+    },
+        options: {
+            responsive:true,
+            legend: {
+                position: "bottom",
+                labels: {
+                    boxWidth: 11,
+                    fontColor: "#757681",
+                    fontSize: 11
+                }
+            }
+        }
+    });
+
+
+
+    // Strat Bar 
+    var barCanvas = document.getElementById("barchart");
+    var Categories = [];//these are all javascript array variables
+    var Products = [];
+    var stor = [];
+
+        @if(Model.Item1.Count() > 0)
+        @foreach(var item in Model.Item1)
+        {
+            @:Categories.push(@item.countCategory);
+            @:Products.push(@item.countProduct);
+            @:stor.push('@item.storeName');
+        }
+    
+    var cate = {
+        label: 'Categories',
+        data: Categories,
+        backgroundColor: 'rgb(255, 99, 132)',
+        borderWidth: 0,
+        lineTension: 0,
+    };
+    var Prod = {
+        label: 'Products',
+        data: Products,
+        backgroundColor: 'rgb(54, 162, 235)',
+        borderWidth: 0,
+    };
+
+    var datasetvalues = {
+        labels: stor,//x-axis label values
+        datasets: [cate, Prod]//y-axis
+    };
+    var chartOptions = {
+        scales: {
+            xAxes: [{
+                barPercentage: 1,//Percent (0-1) of the available width each bar should
+                categoryPercentage: 0.6,//Percent (0-1) of the available width each category
+            }],
+            yAxes: [{
+                barPercentage: 1,
+                categoryPercentage: 0.6,
+                ticks: {
+                    beginAtZero: true
+                }
+            }],
+        }
+    };
+    var barChart = new Chart(barCanvas, {
+        type: 'bar',
+        data: datasetvalues,
+        options: chartOptions
+    });
+</script>

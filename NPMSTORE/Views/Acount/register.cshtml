@@ -1,0 +1,143 @@
+﻿@model NPMSTORE.Models.Customer
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Create Account</title>
+    <!-- HTML5 Shim and Respond.js IE10 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 10]>
+		<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+		<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+		<![endif]-->
+    <!-- Meta -->
+    <meta charset="utf-8">
+
+    <!-- Favicon icon -->
+    <link rel="icon" href="~/assetsDashborde/images/favicon.ico" type="image/x-icon">
+    <!-- fontawesome icon -->
+    <link rel="stylesheet" href="~/assetsDashborde/fonts/fontawesome/css/fontawesome-all.min.css">
+    <!-- animation css -->
+    <link rel="stylesheet" href="~/assetsDashborde/plugins/animation/css/animate.min.css">
+    <!-- vendor css -->
+    <link rel="stylesheet" href="~/assetsDashborde/css/style.css">
+
+</head>
+
+<body>
+<div class="auth-wrapper">
+        <div class="auth-content" style="width: 747px">
+            <div class="auth-bg">
+                <span class="r"></span>
+                <span class="r s"></span>
+                <span class="r s"></span>
+                <span class="r"></span>
+            </div>
+            <div class="card">
+                <div class="card-body text-center">
+                    <form asp-controller="Acount" asp-action="register" method="post" enctype="multipart/form-data">
+                    <div class="mb-4">
+                        <i class="feather icon-user-plus auth-icon"></i>
+                    </div>
+                    <h3 class="mb-4">Sign up</h3>
+                    <div class="row">
+                        <div class="col-xl-6">
+                            <div class="input-group mb-3">
+                                <input type="text" asp-for="FullName" class="form-control" placeholder="Full Name :">
+                            </div>
+                        </div>
+                        <div class="col-xl-6">
+                            <div class="input-group mb-3">
+                                <input type="text" name="userName" class="form-control" placeholder="User Name :">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xl-6">
+                            <div class="input-group mb-3">
+                                <input type="password" name="password" class="form-control" placeholder="Password :">
+                            </div>
+                        </div>
+                        <div class="col-xl-6">
+                            <div class="input-group mb-3">
+                                <input type="password" name="re_password" class="form-control" placeholder="re-Password :">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xl-6">
+                            <div class="input-group mb-3">
+                                <input type="email" asp-for="Email" class="form-control" placeholder="Email :">
+                            </div>
+                        </div>
+                        <div class="col-xl-6">
+                            <div class="input-group mb-3">
+                                <input type="text" asp-for="PhoneNumber" class="form-control" placeholder="Phone Number">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xl-6">
+                            <div class="input-group mb-3">
+                                 <label asp-for="Bdate" class="w-100">Barth Date :</label>
+                                 <input asp-for="Bdate"  class="form-control" placeholder="BDate :">
+                            </div>
+                        </div>
+                        <div class="col-xl-6">
+                            <div class="input-group">
+                                 <label asp-for="Gender" class="w-100">Gender :</label>
+                                 <select asp-for="Gender" class="form-control" required>
+                                    <option selected value="1">Male</option>
+                                    <option value="0">Female</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xl-6">
+                            <div class="input-group mb-3">
+                                <input type="text" asp-for="Address1" class="form-control" placeholder="Address1 :">
+                            </div>
+                        </div>
+                        <div class="col-xl-6">
+                            <div class="input-group mb-3">
+                                <input type="text" asp-for="Address2" class="form-control" placeholder="Address2 : ">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                            <div class="form-group">
+                                <label asp-for="ImageFile" class="profile_details_text">Image:</label>
+                                <input asp-for="ImageFile" class="form-control" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group text-left">
+                        <div class="checkbox checkbox-fill d-inline">
+                            <input type="checkbox" name="checkbox-fill-2" id="checkbox-fill-2">
+                            <label for="checkbox-fill-2" class="cr">Aprroved To<a href="#!"> Team And Ploycie</a> .</label>
+                        </div>
+                    </div>
+                    <button class="btn btn-primary shadow-2 mb-4"type="submit">Sign up</button>
+                </form>
+                    <p class="mb-0 text-muted">Allready have an account? <a asp-controller="Acount" asp-action="Login"> Log in</a></p>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+<!-- Required Js -->
+<script src="~/assetsDashborde/js/vendor-all.min.js"></script>
+<script src="~/assetsDashborde/plugins/bootstrap/js/bootstrap.min.js"></script>
+
+</body>
+</html>

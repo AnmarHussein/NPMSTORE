@@ -1,0 +1,143 @@
+﻿@model IEnumerable<NPMSTORE.Models.CartVm>
+@{
+    ViewData["Title"] = "Shoping Carts";
+    Layout = "~/Views/Shared/_LayoutHome.cshtml";
+}
+
+  <!--================Cart Area =================-->
+  <section class="h-100 h-custom mt-5" style="background-color: #eee;">
+  <div class="container py-5 h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col">
+        <div class="card">
+          <div class="card-body p-4">
+                @if(ViewBag.Message != "")
+                {
+                   <div class="alert alert-danger">@ViewBag.Message</div>         
+                }
+            <div class="row">
+              <div class="col-lg-7">
+                <h5 class="mb-3"><a asp-action="allProducts" class="text-body"><i
+                      class="fas fa-long-arrow-alt-left me-2"></i>Continue shopping</a></h5>
+                <hr>
+
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                  <div>
+                    <p class="mb-1">Shopping cart</p>
+                    <p class="mb-0">You have @Model.Count() items in your cart</p>
+                  </div>
+                </div>
+                @foreach (var item in Model)
+               {
+                   <div class="card mb-3">
+                      <div class="card-body">
+                        <div class="d-flex justify-content-between">
+                          <div class="d-flex flex-row align-items-center"style="width:180px">
+                            <div >
+                              <img
+                                src=@Url.Content("~/Images/" + item.product.Image)
+                                class="img-fluid rounded-3" alt="Shopping item" style="width: 65px;">
+                            </div>
+                            <div class="ms-3">
+                              <h5> @item.product.Name</h5>
+                            </div>
+                            
+                          </div>
+                          <div  class="cart-shopping-div-quantity ml-4">
+                                <form asp-controller="Home" asp-action="UpdateQuantityCart" method="post">
+                                    <input type="hidden" value="@item.product.Id" name="id">
+                                    <input id="form1" min="1" name="quantity" value="@item.Quantity" type="number"
+                                           class="form-control form-control-sm input-quantity" />
+                                    <button type="submit" class="button-quantity-edit"><i class="fa fa-edit"></i> </button>
+                                </form>
+                            </div>
+                          <div class="d-flex flex-row align-items-center">
+                            
+                            <div style="width: 80px;">
+                              <h5 class="mb-0">@item.product.Price.ToString("c")</h5>
+                            </div>
+                            <form asp-controller="Home" asp-action="deleteFromCart" method="post">
+                                <input type="hidden" value="@item.product.Id" name="id">
+                                 <button class="button-shopping-cart"><i class="fas fa-trash-alt"></i></button>
+                            </form>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+               }
+                
+
+              </div>
+              <div class="col-lg-5">
+
+                <div class="card bg-primary text-white rounded-3">
+                  <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                      <h5 class="mb-0">Card details</h5>
+                    </div>
+                    <form asp-controller="Home" asp-action="AddOrder" class="mt-4">
+                      <div class="form-outline form-white mb-4">
+                        <input type="text" id="typeName" name="CardName" class="form-control form-control-lg" required siez="17"
+                          placeholder="Card Name" />
+                        <label class="form-label" for="typeName">Card Name</label>
+                      </div>
+
+                      <div class="form-outline form-white mb-4">
+                        <input type="text" id="cridt-card" name="CardNumber" class="form-control form-control-lg" siez="17"
+                          placeholder="0000 0000 0000 0000" pattern="[0-9]{4} *[0-9]{4} *[0-9]{4} *[0-9]{4}" minlength="19" required maxlength="19" />
+                        <label class="form-label" for="typeText">Card Number</label>
+                      </div>
+
+                      <div class="row mb-4">
+                        <div class="col-md-6">
+                          <div class="form-outline form-white">
+                            <input type="text" id="typeExp" name="ExpiryDate" class="form-control form-control-lg"
+                              placeholder="MM/YYYY" size="7" id="exp" pattern="[0-9]{2}/[0-9]{4}" minlength="7" maxlength="7" required autocomplete="off"/>
+                            <label class="form-label" for="typeExp">Expiration</label>
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <div class="form-outline form-white">
+                            <input type="password" id="typeText" name="SecurityCode" class="form-control form-control-lg"
+                              placeholder="&#9679;&#9679;&#9679;&#9679;"  size="1" minlength="4" maxlength="4" required autocomplete="off"/>
+                            <label class="form-label" for="typeText">Cvv</label>
+                          </div>
+                        </div>
+                      </div>
+
+                    
+
+                    <hr class="my-4">
+
+                    <input type="hidden" value="@Model.Sum(p=>p.Quantity * p.product.Price)" name="Amount" />
+                    <button type="submit" class="btn btn-info btn-block btn-lg">
+                      <div class="d-flex justify-content-between">
+                        <span>@Model.Sum(p=>p.Quantity * p.product.Price)</span>
+                        <span>Checkout <i class="fas fa-long-arrow-alt-right ms-2"></i></span>
+                      </div>
+                    </button>
+                    </form>
+                  </div>
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+  <!--================End Cart Area =================-->
+
+ <script>
+ 
+document.getElementById('cridt-card').addEventListener('input', function (e) {
+  var target = e.target, position = target.selectionEnd, length = target.value.length;
+  
+  target.value = target.value.replace(/[^\dA-Z]/g, '').replace(/(.{4})/g, '$1 ').trim();
+  target.selectionEnd = position += ((target.value.charAt(position - 1) === ' ' && target.value.charAt(length - 1) === ' ' && length !== target.value.length) ? 1 : 0);
+});
+ </script>

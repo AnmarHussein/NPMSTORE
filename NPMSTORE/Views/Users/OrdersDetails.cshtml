@@ -1,0 +1,143 @@
+﻿@model Tuple<Order,IEnumerable<OrderProduct>>
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_LayoutDashbord.cshtml";
+}
+
+
+  <!--================Order Details Area =================-->
+<div class="page-content container" >
+    <div class="page-header text-blue-d2">
+        <h1 class="page-title text-secondary-d1">
+            Order
+            <small class="page-info">
+                <i class="fa fa-angle-double-right text-80"></i>
+                ID: #@Model.Item1.Id
+            </small>
+        </h1>
+
+        <div class="page-tools" id="Export">
+            <div class="action-buttons">
+                <a class="btn bg-white btn-light mx-1px text-95" onclick="myinvoice()"  data-title="PDF">
+                    <i class="mr-1 fa fa-file-pdf-o text-danger-m1 text-120 w-2"></i>
+                    Export
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="container px-0" id="order-print">
+        <div class="row mt-4">
+            <div class="col-12 col-lg-12">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="text-center text-150">
+                             <a class=" logo_h"  href="~/assetsHome/index.html"><img src="~/assetsHome/img/logo.png" alt=""></a>
+                        </div>
+                    </div>
+                </div>
+                <!-- .row -->
+
+                <hr class="row brc-default-l1 mx-n1 mb-4" />
+
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div>
+                            <span class="text-sm text-grey-m2 align-middle">To:</span>
+                            <span class="text-600 text-110 text-blue align-middle">@Model.Item1.Customer.FullName</span>
+                        </div>
+                        <div class="text-grey-m2">
+                            <div class="my-1">
+                               Address1: @Model.Item1.Customer.Address1
+                            </div>
+                            <div class="my-1">
+                               Address2: @Model.Item1.Customer.Address2
+                            </div>
+                            <div class="my-1"><i class="fa fa-phone fa-flip-horizontal text-secondary"></i> <b class="text-600">@Model.Item1.Customer.PhoneNumber</b></div>
+                        </div>
+                    </div>
+                    <!-- /.col -->
+
+                    <div class="text-95 col-sm-6 align-self-start d-sm-flex justify-content-end">
+                        <hr class="d-sm-none" />
+                        <div class="text-grey-m2">
+                            <div class="mt-1 mb-2 text-secondary-m1 text-600 text-125">
+                                Invoice
+                            </div>
+
+                            <div class="my-2"><i class="fa fa-circle text-blue-m2 text-xs mr-1"></i> <span class="text-600 text-90">ID:</span> #@Model.Item1.Id</div>
+
+                            <div class="my-2"><i class="fa fa-circle text-blue-m2 text-xs mr-1"></i> <span class="text-600 text-90">Issue Date:</span> @DateTime.Now.ToString("dd MMMM, yyyy")</div>
+
+                            <div class="my-2"><i class="fa fa-circle text-blue-m2 text-xs mr-1"></i> <span class="text-600 text-90">Status:</span> <span class="badge badge-success badge-pill px-25">@(Model.Item1.OrderStat == 1 ? "Compleate" : "Binding")</span></div>
+                        </div>
+                    </div>
+                    <!-- /.col -->
+                </div>
+
+                <div class="mt-4">
+                    <div class="row text-600 text-white bgc-default-tp1 py-25">
+                        <div class="d-none d-sm-block col-1">#</div>
+                        <div class="col-9 col-sm-5">Description</div>
+                        <div class="d-none d-sm-block col-4 col-sm-2">Qty</div>
+                        <div class="d-none d-sm-block col-sm-2">Unit Price</div>
+                        <div class="col-2">Amount</div>
+                    </div>
+                    
+                    <div class="text-95 text-secondary-d3">
+                        @{
+                            var count = 0;
+                        }
+                        @foreach (var prod in Model.Item2)
+                        {
+                            count++;
+                            <div class="row mb-2 mb-sm-0 py-25">
+                                <div class="d-none d-sm-block col-1">@count</div>
+                                <div class="col-9 col-sm-5">@prod.Product.Name</div>
+                                <div class="d-none d-sm-block col-2">@prod.Quantity</div>
+                                <div class="d-none d-sm-block col-2 text-95">@prod.Product.Price.ToString("c")</div>
+                                <div class="col-2 text-secondary-d2">@((prod.Quantity * prod.Product.Price).ToString("c"))</div>
+                            </div>
+                        }
+                    </div>
+
+                    <div class="row border-b-2 brc-default-l2"></div>
+
+                    <div class="row mt-3">
+                        <div class="col-12 col-sm-7 text-grey-d2 text-95 mt-2 mt-lg-0">
+                            This document is issued only by our website...
+                        </div>
+
+                        <div class="col-12 col-sm-5 text-grey text-90 order-first order-sm-last">
+                            
+                            <div class="row my-2 align-items-center bgc-primary-l3 p-2">
+                                <div class="col-7 text-right">
+                                    Total Amount
+                                </div>
+                                <div class="col-5">
+                                    <span class="text-150 text-success-d3 opacity-2">@Model.Item1.TotalCost.ToString("c")</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <hr />
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+  <!--================End Order Details Area =================-->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
+  <script>
+      function myinvoice()
+      {
+            let element = document.getElementById('order-print');
+            html2pdf(element);
+      }
+
+  
+  </script>

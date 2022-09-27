@@ -1,0 +1,49 @@
+﻿@model NPMSTORE.Models.ProductAttribute
+
+@{
+    ViewData["Title"] = "AddAttr";
+    Layout = "~/Views/Shared/_LayoutDashbord.cshtml";
+}
+
+<div class="edit-users">
+    <div class="container">
+        <div class="edit_information">
+            <form asp-action="EditAttr">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" asp-for="Id" />
+                <input type="hidden" asp-for="Productid" />
+                <div class="row">
+                    <div class="col-lg-6 col-xs-12">
+                        <div class="form-group">
+                            <label asp-for="Name" class="profile_details_text"></label>
+                            <input asp-for="Name" class="form-control" />
+                            <span asp-validation-for="Name" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                        <div class="form-group">
+                            <label asp-for="Describtion" class="control-label"></label>
+                            <input asp-for="Describtion" class="form-control" />
+                            <span asp-validation-for="Describtion" class="text-danger"></span>
+                        </div>
+                    </div>
+                    </div>
+                    <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 submit text-right ">
+                        <div class="form-group">
+                            <input type="submit" value="Create" class="btn btn-primary" />
+                            <div>
+                                <a asp-action="Index">Back to List</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

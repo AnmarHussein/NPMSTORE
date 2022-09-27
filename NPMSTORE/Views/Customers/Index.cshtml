@@ -1,0 +1,65 @@
+﻿@model IEnumerable<NPMSTORE.Models.Customer>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_LayoutDashbord.cshtml";
+}
+
+
+<!--[ Recent Users ] start-->
+<div class="col-xl-12 col-md-6">
+    <div class="card Recent-Users">
+        <div class="card-header">
+            <h5>Latest Users</h5>
+        </div>
+        <div class="card-block px-0 py-0">
+            <div class="table-responsive">
+                <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>Full NAme</th>
+                                <th class="d-none d-md-table-cell">E-mail</th>
+                                <th class="d-none d-md-table-cell">Gender</th>
+                                <th class="d-none d-md-table-cell">User Name</th>
+                                <th class="d-none d-md-table-cell">PhoneNumber</th>
+                                <th>Controller</th>
+                            </tr>
+                        </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        { 
+                            <tr class="unread">
+                            <td>
+                                <h6 class="m-0">
+                                    <img class="rounded-circle  m-r-10" style="width:40px;" src=@Url.Content("~/Images/" + item.Image)  alt="activity-user">@item.FullName
+                                </h6>
+                            </td>
+                            <td class="d-none d-md-table-cell">
+                                <h6 class="m-0"> @item.Email</h6>
+                            </td>
+                            <td class="d-none d-md-table-cell">
+                                <h6 class="m-0"> @if (item.Gender == 1){@("Male")}else{@("Female")}</h6>
+                            </td>
+                            <td class="d-none d-md-table-cell">
+                                        <h6 class="m-0"> @if (item.CustomersLogin != null) {@item.CustomersLogin.UserName } else { @("Not Found UserName")}</h6>
+                                </td>
+                            <td class="d-none d-md-table-cell">
+                                <h6 class="m-0">@item.PhoneNumber</h6>
+                            </td>
+                            <td>
+                                <a asp-action="Edit" asp-route-id="@item.Id" class="linkControle lable theme-bg2 text-white f-12 "><i class="fa fa-edit"></i></a>
+                                <a asp-action="Details" asp-route-id="@item.Id" class="linkControle lable theme-bg text-white f-12 "><i class="	fa fa-eye" aria-hidden="true"></i></a>
+                                <a asp-action="Details" asp-route-id="@item.Id" class="linkControle lable bg-danger text-white f-12 "><i class="fa fa-trash-o" aria-hidden="true"></i></a>
+                            </td>
+                        </tr>
+                        }
+                                                
+                    </tbody>
+                </table>
+                <div class="d-flex justify-content-end">
+                    <a asp-action="Create" class="btn btn-primary theme-bg2 text-white">Create</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,55 @@
+﻿@model IEnumerable<NPMSTORE.Models.ContactU>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_LayoutDashbord.cshtml";
+}
+
+<!--[ Recent Users ] start-->
+<div class="col-xl-12 col-md-6">
+    <div class="card Recent-Users">
+        <div class="card-header">
+            <h5>Latest Users</h5>
+        </div>
+        <div class="card-block px-0 py-0">
+            <div class="table-responsive">
+                <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>Full Name</th>
+                                <th class="d-none d-md-table-cell">E-mail</th>
+                                <th class="d-none d-md-table-cell">Subject</th>
+                                <th class="d-none d-md-table-cell" colspan="2">Message</th>
+                                <th>Controller</th>
+                            </tr>
+                        </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        { 
+                            <tr class="unread">
+                            <td>
+                                <h6 class="m-0">
+                                    @item.FullName
+                                </h6>
+                            </td>
+                            <td class="d-none d-md-table-cell">
+                                <h6 class="m-0"> @item.Email</h6>
+                            </td>
+                            <td class="d-none d-md-table-cell">
+                                <h6 class="m-0"> @item.Subject</h6>
+                            </td>
+                            <td class="d-none d-md-table-cell" colspan="2">
+                                        <h6 class="m-0">@item.Message</h6>
+                            </td>
+
+                        </tr>
+                        }
+                                                
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+

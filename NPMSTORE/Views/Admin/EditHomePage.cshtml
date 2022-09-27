@@ -1,0 +1,230 @@
+﻿@model NPMSTORE.Models.HomeVM
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_LayoutDashbord.cshtml";
+}
+
+<div class="edit-users">
+    <div class="container">
+        <div class="edit_information">
+            <form asp-action="EditHomePage" method="post" enctype="multipart/form-data">
+                <h3 class="text-center mb-3 mt-1 p-3">Edit Header</h3>
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" asp-for="header.Id" />
+                <input type="hidden" asp-for="header.HomeId" />
+                <input type="hidden" asp-for="header.Logo" />
+                <div class="row">
+                    <div class="col-lg-6 col-xs-12">
+                        <div class="form-group">
+                            <label asp-for="header.Name" class="profile_details_text"></label>
+                            <input asp-for="header.Name" class="form-control" />
+                            <span asp-validation-for="header.Name" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-xs-12">
+                        <div class="form-group">
+                            <label asp-for="header.ImageFile" class="profile_details_text"></label>
+                            <input asp-for="header.ImageFile" class="form-control" />
+                            <span asp-validation-for="header.ImageFile" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div> 
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 submit text-right ">
+                        <div class="form-group">
+                            <input type="submit" class="btn btn-success" value="Save">
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="edit-users mt-5">
+    <div class="container">
+        <div class="edit_information">
+            <form asp-action="EditHomePage" method="post" enctype="multipart/form-data">
+                <h3 class="text-center mb-3 mt-1 p-3">Edit SideBar</h3>
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" asp-for="sidebar.Id" />
+                <input type="hidden" asp-for="sidebar.HomeId" />
+                <input type="hidden" asp-for="sidebar.Image" />
+                <div class="row">
+                    <div class="col-lg-6 col-xs-12">
+                        <div class="form-group">
+                            <label asp-for="sidebar.Title" class="control-label"></label>
+                            <input asp-for="sidebar.Title" class="form-control" />
+                            <span asp-validation-for="sidebar.Title" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-xs-12">
+                        <div class="form-group">
+                            <label asp-for="sidebar.Heading" class="control-label"></label>
+                            <input asp-for="sidebar.Heading" class="form-control" />
+                            <span asp-validation-for="sidebar.Heading" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-6 col-xs-12">
+                        <div class="form-group">
+                            <label asp-for="sidebar.Describtion" class="control-label"></label>
+                            <input asp-for="sidebar.Describtion" class="form-control" />
+                            <span asp-validation-for="sidebar.Describtion" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-xs-12">
+                        <div class="form-group">
+                            <label asp-for="sidebar.ImageFile" class="control-label"></label>
+                            <input asp-for="sidebar.ImageFile" class="form-control" />
+                            <span asp-validation-for="sidebar.ImageFile" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 submit text-right ">
+                        <div class="form-group">
+                            <input type="submit" class="btn btn-success" value="Save">
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<div class="edit-users mt-5">
+    <div class="container">
+        <div class="edit_information">
+            <form asp-action="EditHomePage" method="post" enctype="multipart/form-data">
+                <h3 class="text-center mb-3 mt-1 p-3">Edit Offer</h3>
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" asp-for="offer.Id" />
+                <input type="hidden" asp-for="offer.HomeId" />
+                <input type="hidden" asp-for="offer.Image" />
+                <div class="row">
+                    <div class="col-lg-6 col-xs-12">
+                        <div class="form-group">
+                            <label asp-for="offer.Heading1" class="control-label"></label>
+                            <input asp-for="offer.Heading1" class="form-control" />
+                            <span asp-validation-for="offer.Heading1" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-xs-12">
+                        <div class="form-group">
+                            <label asp-for="offer.Heading2" class="control-label"></label>
+                            <input asp-for="offer.Heading2" class="form-control" />
+                            <span asp-validation-for="offer.Heading2" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-6 col-xs-12">
+                        <div class="form-group">
+                            <label asp-for="offer.Pargraf" class="control-label"></label>
+                            <input asp-for="offer.Pargraf" class="form-control" />
+                            <span asp-validation-for="offer.Pargraf" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-xs-12">
+                        <div class="form-group">
+                            <label asp-for="offer.ImageFile" class="control-label"></label>
+                            <input asp-for="offer.ImageFile" class="form-control" />
+                            <span asp-validation-for="offer.ImageFile" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 submit text-right ">
+                        <div class="form-group">
+                            <input type="submit" class="btn btn-success" value="Save">
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="edit-users mt-5">
+    <div class="container">
+        <div class="edit_information">
+            <h3 class="text-center mb-3 mt-1 p-3">Edit Caption</h3>
+            <form asp-action="EditHomePage" method="post">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="row">
+            @for (var i= 0;i<Model.caption.Count(); i++)
+            {
+                <input type="hidden" asp-for="caption[i].Id" value="@Model.caption[i].Id"/>
+                <input type="hidden" asp-for="caption[i].HomeId" value="@Model.caption[i].HomeId" />
+                
+                    <div class="col-lg-6 col-xs-12">
+                        <div class="form-group">
+                            <label asp-for="caption[i].Name" class="control-label" >@(i+1) Caption</label>
+                            <input asp-for="caption[i].Name" class="form-control" value="@Model.caption[i].Name"/>
+                            <span asp-validation-for="caption[i].Name" class="text-danger" ></span>
+                        </div>
+                    </div>  
+            }
+
+            </div>
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 submit text-right ">
+                    <div class="form-group">
+                        <input type="submit" class="btn btn-success" value="Save">
+                    </div>
+                </div>
+            </div>
+            </form>
+            
+        </div>
+    </div>
+</div>
+
+
+<div class="edit-users mt-5">
+    <div class="container">
+        <div class="edit_information">
+            <h3 class="text-center mb-3 mt-1 p-3">Edit Liks</h3>
+            <form asp-action="EditHomePage" method="post">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="row">
+            @for (var i= 0;i<Model.links.Count(); i++)
+            {
+                <input type="hidden" asp-for="links[i].Id" value="@Model.links[i].Id"/>
+                <input type="hidden" asp-for="links[i].HomeId" value="@Model.links[i].HomeId" />
+                
+                    <div class="col-lg-6 col-xs-12">
+                        <div class="form-group">
+                            <label asp-for="links[i].Name" class="control-label" >@(i+1) Name </label>
+                            <input asp-for="links[i].Name" class="form-control" value="@Model.links[i].Name"/>
+                            <span asp-validation-for="links[i].Name" class="text-danger" ></span>
+                        </div>
+                    </div> 
+                    <div class="col-lg-6 col-xs-12">
+                        <div class="form-group">
+                            <label asp-for="links[i].Link1" class="control-label" >@(i+1) Link</label>
+                            <input asp-for="links[i].Link1" class="form-control" value="@Model.links[i].Link1"/>
+                            <span asp-validation-for="links[i].Link1" class="text-danger" ></span>
+                        </div>
+                    </div> 
+            }
+
+            </div>
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 submit text-right ">
+                    <div class="form-group">
+                        <input type="submit" class="btn btn-success" value="Save">
+                    </div>
+                </div>
+            </div>
+            </form>
+            
+        </div>
+    </div>
+</div>

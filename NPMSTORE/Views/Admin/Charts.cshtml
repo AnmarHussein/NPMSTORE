@@ -1,0 +1,152 @@
+﻿@model List<NPMSTORE.Models.chartDonantVM>
+@{
+    ViewData["Title"] = "Charts";
+    Layout = "~/Views/Shared/_LayoutDashbord.cshtml";
+}
+
+@*<h1>Index Admin :: @User.Identity.Name   :::  
+:: Role @User.FindFirst(claim=>claim.Type == System.Security.Claims.ClaimTypes.Role).Value  </h1>
+Role:IS Admin @User.IsInRole("Admin")*@
+
+
+<!-- [ breadcrumb ] end -->
+<div class="main-body">
+    <div class="page-wrapper">
+        <!-- [ Main Charts ] start -->
+        <div class="row">  
+            <div class="col-xl-6">
+                <div class="text-center">
+                    <h4>Total Pay For Each Store</h4>
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="chart">
+                                <canvas id="doughnutchart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-6">
+                <div class="text-center">
+                    <h4 c>Bar Total Counts </h4>
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="chart">
+                                <canvas id="barchart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- [ Morris Chart ] end -->
+        </div>
+        <!-- [ Main Charts ] end -->
+    </div>
+</div>
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.min.js"></script>
+
+<script>
+    // Dounat Chart
+    var doughnutchartCanvas = document.getElementById("doughnutchart");
+    var store = [];
+    var totalCost = [];
+        @if(Model.Count() > 0)
+        @foreach(var item in Model)
+        {
+            @:store.push('@item.storeName');
+            @:totalCost.push(@item.totalCost);
+        }
+    var doughnutChart = new Chart(doughnutchartCanvas, {
+        type: 'doughnut',
+        data: {
+            labels: store,
+        datasets: [{
+            data: totalCost,
+            borderWidth: 0,
+            backgroundColor: [
+                'rgb(255, 99, 132)',
+                'rgb(54, 162, 235)',
+                'rgb(157, 230, 41)',
+                'rgb(41, 224, 230)',
+                'rgb(255, 255, 0)'
+            ],
+            hoverBackgroundColor: [
+                'rgb(255, 99, 132)',
+                'rgb(54, 162, 235)',
+                'rgb(157, 230, 41)',
+                'rgb(41, 224, 230)',
+                'rgb(255, 255, 0)'
+            ]
+        }]
+    },
+        options: {
+            responsive:true,
+            legend: {
+                position: "bottom",
+                labels: {
+                    boxWidth: 11,
+                    fontColor: "#757681",
+                    fontSize: 11
+                }
+            }
+        }
+    });
+
+
+
+    // Strat Bar 
+    var barCanvas = document.getElementById("barchart");
+    var Categories = [];//these are all javascript array variables
+    var Products = [];
+    var stor = [];
+
+        @if(Model.Count() > 0)
+        @foreach(var item in Model)
+        {
+            @:Categories.push(@item.countCategory);
+            @:Products.push(@item.countProduct);
+            @:stor.push('@item.storeName');
+        }
+    
+    var cate = {
+        label: 'Categories',
+        data: Categories,
+        backgroundColor: 'rgb(255, 99, 132)',
+        borderWidth: 0,
+        lineTension: 0,
+    };
+    var Prod = {
+        label: 'Products',
+        data: Products,
+        backgroundColor: 'rgb(54, 162, 235)',
+        borderWidth: 0,
+    };
+
+    var datasetvalues = {
+        labels: stor,//x-axis label values
+        datasets: [cate, Prod]//y-axis
+    };
+    var chartOptions = {
+        scales: {
+            xAxes: [{
+                barPercentage: 1,//Percent (0-1) of the available width each bar should
+                categoryPercentage: 0.6,//Percent (0-1) of the available width each category
+            }],
+            yAxes: [{
+                barPercentage: 1,
+                categoryPercentage: 0.6,
+                ticks: {
+                    beginAtZero: true
+                }
+            }],
+        }
+    };
+    var barChart = new Chart(barCanvas, {
+        type: 'bar',
+        data: datasetvalues,
+        options: chartOptions
+    });
+</script>

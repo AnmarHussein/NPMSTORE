@@ -1,0 +1,75 @@
+﻿@model IEnumerable<NPMSTORE.Models.Testimonial>
+
+@{
+    ViewData["Title"] = "Testimonials";
+    Layout = "~/Views/Shared/_LayoutDashbord.cshtml";
+    var i = 1;
+}
+
+    <!--[ Recent Users ] start-->
+<div class="col-xl-12 col-md-6">
+    <div class="card Recent-Users">
+        <div class="card-header">
+            <h5>Latest Testimonial</h5>
+        </div>
+        <div class="card-block px-0 py-0">
+               <div id="accordion">
+                   @foreach (var item in Model)
+                {                 
+                    <div class="card m-0">
+                    <div class="card-header" id="@("head"+item.Id)">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <span class="m-0">
+                                    @if(item.Approved==1)
+                                        {
+                                            <i class="fas fa-circle text-c-green f-10 m-r-15"></i>
+                                        }
+                                        else
+                                        {
+                                            <i class="fas fa-circle text-c-red f-10 m-r-15"></i>
+                                        }
+                                    </span>
+                            <button class="btn btn-link" data-toggle="collapse" data-target="@("#col"+item.Id)" aria-expanded="true" aria-controls="@("col"+item.Id)">
+                               @item.Customer.FullName 
+                            </button>
+                            </div>
+                            
+                            <div>
+                                <form asp-controller="Admin" asp-action="ApproveOrRejectTestimonial" method="post" class="d-inline-flex">
+                                    <input type="hidden" asp-for="@item.Id" name="testiId" />
+                                    <input type="hidden" asp-for="@item.Approved" name="approved" />
+                                    <button type="submit" onclick="confirm(`Ary You Sure !`)"  class="linkControle lable @(item.Approved != 1? "theme-bg2": "theme-bg")  text-white f-12" style="border:none;"> 
+                                        @if(item.Approved != 1)
+                                        {
+                                            <i class="fa fa-check" aria-hidden="true"></i>
+                                        }
+                                        else
+                                        {
+                                            <i class="fa fa-times" aria-hidden="true"></i>
+                                        }
+
+                                    </button>
+                                </form>
+                                <form asp-controller="Admin" asp-action="DeleteTestimonials" method="post" class="d-inline-flex">
+                                    <input type="hidden" asp-for="@item.Id" name="testiId" />
+                                    <button type="submit" onclick="confirm(`Ary You Sure !`)"  class="linkControle lable bg-danger text-white f-12" style="border:none;"> 
+                                        <i class="fa fa-trash-o" aria-hidden="true"></i> 
+                                    </button>
+                                </form>
+                            </div>
+                        </div> 
+                    </div>
+                    <div id="@("col"+item.Id)" class="collapse @(i == 1?"show":"") " aria-labelledby="@("head"+item.Id)" data-parent="#accordion">
+                      <div class="card-body">
+                          @item.Details
+                      </div>
+                    </div>
+                    </div>
+                    i++;
+                }
+                </div>              
+        </div>
+    </div>
+</div>
+   

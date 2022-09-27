@@ -1,0 +1,40 @@
+﻿@model NPMSTORE.Models.Customer
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_LayoutDashbord.cshtml";
+}
+
+<div class="profile-users">
+    <div class="container mt-5">
+        <div class="row d-flex justify-content-center">
+            <div class="col-md-10">
+                <div class="card p-3 py-4">
+                    <div class="text-center"> <img src=@Url.Content("~/Images/" + Model.Image)  width="250" class="rounded-circle"> </div>
+                    <div class="text-center mt-3 gap-3">
+                        <span class="label theme-bg text-white rounded text-white"> @if (Model.CustomersLogin != null) {@Model.CustomersLogin.UserName } else { @("Not Found UserName")}</span>
+                        <div class="px-4 mt-4">
+                            <ul class="list-group list-group-flush text-left">
+                                <li class="list-group-item"><span class="h6"><i class="fa-solid fa-user"></i> Full Name</span> : @Model.FullName</li>
+                                <li class="list-group-item"><span class="h6"><i class="fa-solid fa-inbox"></i> E-mail</span> : @Model.Email</li>
+                                <li class="list-group-item"><span class="h6"><i class="fa-solid fa-phone"></i> Phone Number</span> : @Model.PhoneNumber</li>
+                                <li class="list-group-item"><span class="h6"><i class="fa-solid fa-calendar"></i> BDate</span> :@Model.Bdate.ToString("dd/MM/yyyy")</li>
+                                <li class="list-group-item"><span class="h6"><i class="fa-solid fa-location-arrow"></i> Adress</span>:@Model.Address1 , @Model.Address2</li>
+                            </ul>
+
+                        </div>
+                        <div class="d-flex justify-content-end">
+                            <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary text-right mt-4 btn-sm"><i class="fa-solid fa-pen-to-square"></i> Edit</a>
+                            <form asp-action="Delete">
+                                <input type="hidden" asp-for="Id" />
+                                <input type="submit" value="Delete" class="btn btn-danger mt-4" /> 
+                            </form>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- [ Main Content ] end -->

@@ -1,0 +1,107 @@
+﻿@model Tuple<Order,IEnumerable<OrderProduct>>
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_LayoutDashbord.cshtml";
+}
+
+<!--[ Recent Users ] start-->
+<div class="col-xl-12 col-md-6">
+    <div class="card Recent-Users">
+        <div class="card-header">
+            <h5>Order #@Model.Item1.Id</h5>
+        </div>
+        <div class="card-block px-4 py-0 ml-2">
+            <div class="row">
+                <div class="col-12">
+                    <h3>The Order To Customer :: @Model.Item1.Customer.FullName</h3>
+                    <h5 class="text-c-green"> Total Cost : $ @Model.Item1.TotalCost</h5>
+                    <h6>Card Payments : @Model.Item1.Payment.CardNumber</h6>
+                    <h6>Address1 : @Model.Item1.Customer.Address1   , Address2 @Model.Item1.Customer.Address2</h6>
+                    <h6>In Stock : 
+                        @if (Model.Item1.OrderStat == 1)
+                        {
+                            <span class='text-c-green'>Compleate</span>
+                        }
+                        else
+                        {
+                            <span class='text-c-orange'>Waitting</span>
+                        }
+                        </h6>
+                    <hr/>
+                    <p class="text-muted">Email : @Model.Item1.Customer.Email </p>
+                    <p class="text-muted">Phone Number  : @Model.Item1.Customer.PhoneNumber </p>
+                    <p class="text-muted">Cretae at : @Model.Item1.CreateAt </p>
+                    <div class="d-flex justify-content-end">
+                        <form asp-action="Delete">
+                            <input type="hidden" asp-for="Item1.Id" name="Id"  />
+                            <input type="submit" value="Delete" class="btn btn-danger" /> |
+                            <a asp-action="Index">Back to List</a>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!--[ Recent Users ] start-->
+<div class="col-xl-12 col-md-6">
+    <div class="card Recent-Users">
+        <div class="card-header">
+            <h5>Latest Products To Oreder : #@Model.Item1.Id</h5>
+        </div>
+        <div class="card-block px-0 py-0">
+            <div class="table-responsive">
+                <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>Product Name</th>
+                                <th>Products Price</th>
+                                <th>Quantity</th>
+                                <th>Total Cost</th>
+                                <th>Controller</th>
+                            </tr>
+                        </thead>
+                    <tbody>
+                        @if(@Model.Item2.Count() > 0 )
+                            @foreach (var item in @Model.Item2)
+                           {
+                               <tr class="unread">
+                            <td>
+                                <h6 class="m-0">
+                                    <img class="rounded-circle  m-r-10" style="width:40px;height:40px" src=@Url.Content("~/Images/" + item.Product.Image)  alt="activity-user">@item.Product.Name
+                                </h6>
+                            </td>
+                            <td class="d-none d-md-table-cell">
+                                <h6 class="m-0 text-c-green">$ @item.Product.Price</h6>
+                            </td>
+                            <td class="d-none d-md-table-cell">
+                                <h6 class="m-0">@item.Quantity</h6>
+                            </td>
+                            <td class="d-none d-md-table-cell">
+                                <h6 class="m-0 text-c-green" >$ @(item.Product.Price * item.Quantity)</h6>
+                            </td>
+                            <td>
+                                <a asp-controller="Orders" asp-action="EditProducts" asp-route-orderid="@Model.Item1.Id" asp-route-productid="@item.Product.Id" class="linkControle lable theme-bg2 text-white f-12 "><i class="fa fa-edit"></i></a>
+                                <form asp-controller="Orders" asp-action="DeleteProduct"  class="d-inline" method="post">
+                                    <input type="hidden" asp-for="@Model.Item1.Id" name="orderid"/>
+                                    <input type="hidden" asp-for="@item.Product.Id" name="productid"/>
+                                    <button type="submit" onclick="confirm(`Ary You Sure !`)"  class="linkControle lable bg-danger text-white f-12" style="border:none;"> 
+                                        <i class="fa fa-trash-o" aria-hidden="true"></i> 
+                                    </button>
+                                </form>                             
+                            </td>
+                        </tr>
+                           }
+                    </tbody>
+                </table>
+                <div class="d-flex justify-content-end">
+                    <a asp-action="AddProducts" asp-route-orderid="@Model.Item1.Id" class="btn btn-primary theme-bg2 text-white">Add Products</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,38 @@
+﻿@model NPMSTORE.Models.Testimonial
+
+@{
+    ViewData["Title"] = "CreateTestimonials";
+    Layout = "~/Views/Shared/_LayoutDashbord.cshtml";
+}
+
+<div class="edit-users">
+    <div class="container">
+        <div class="edit_information">
+            <form asp-controller="Users" asp-action="CreateTestimonials"method="post">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <h3 class="text-center mb-3 mt-1 p-3">Create Testimonials</h3>
+                <div class="row">
+                    <div class="col-lg-12 col-xs-12">
+                        <div class="form-group">
+                            <label asp-for="Details" class="profile_details_text">Testimonials :</label>
+                            <input asp-for="Details" class="form-control" required/>
+                            <span asp-validation-for="Details" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 submit text-right ">
+                        <div class="form-group">
+                            <input type="submit" class="btn btn-success" value="Submit">
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+

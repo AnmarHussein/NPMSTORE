@@ -1,0 +1,78 @@
+﻿@model Tuple<NPMSTORE.Models.Header, int>;
+
+<!--================ Start Header Menu Area =================-->
+    <header class="header_area">
+        <div class="main_menu">
+            <nav class="navbar navbar-expand-lg navbar-light">
+                <div class="container">
+                    <a class="navbar-brand logo_h" asp-controller="Home" asp-action="Index"><img src=@Url.Content("~/Images/"+Model.Item1.Logo) alt="">@Model.Item1.Name</a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <div class="collapse navbar-collapse offset" id="navbarSupportedContent">
+                        <ul class="nav navbar-nav menu_nav ml-auto mr-auto">
+                            <li class="nav-item active"><a class="nav-link" asp-controller="Home" asp-action="Index">Home</a></li>
+                            <li class="nav-item submenu dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                                   aria-expanded="false">Shop</a>
+                                <ul class="dropdown-menu">
+                                    <li class="nav-item"><a class="nav-link" asp-controller="Home" asp-action="ShowStore">Show Stores</a></li>
+                                    <li class="nav-item"><a class="nav-link" asp-controller="Home" asp-action="allProducts">All Products</a></li>
+                                    <li class="nav-item"><a class="nav-link" asp-controller="Home" asp-action="ShoppingCart">Shopping Cart</a></li>
+                                </ul>
+                            </li>
+
+                            <li class="nav-item"><a class="nav-link" asp-controller="Home" asp-action="AboutUs">About US</a></li>
+                            <li class="nav-item"><a class="nav-link" asp-controller="ContactUs" asp-action="Create">Contact</a></li>
+                        </ul>
+
+                        <ul class="nav-shop">
+                            <li class="nav-item"><button><i class="ti-search"></i></button></li>
+                            <li class="nav-item">
+                                    <button onclick="location.href='@Url.Action("ShoppingCart", "Home")'">
+                                        <i class="ti-shopping-cart"></i><span class="nav-shop__circle">@Model.Item2</span>
+                                    </button>
+                                </li>
+                            @if(!User.Identity.IsAuthenticated )
+                            {
+                                <li class="nav-item"><a class="button button-header" asp-controller="Acount" asp-action="Login">Login/Rigesrt</a></li>
+                            }
+                            else
+                            {
+                                   
+                                    <li class="nav-item dropdown">
+                                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <img src=@Url.Content("~/Images/"+ User.FindFirst("User_Image").Value) width="40" height="40" class="rounded-circle">
+                                        </a>
+                                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink" style="left: -61px;">
+                                        @if(User.IsInRole("Admin"))
+                                        {
+                                            <a class="dropdown-item" asp-controller="Admin" asp-action="Index" >Dashboard @User.Identity.Name</a>
+                                        }
+                                        else
+                                        {
+                                          <a class="dropdown-item" asp-controller="Users" asp-action="Index" >Dashboard @User.Identity.Name</a>
+                                        }
+
+                                            <a class="dropdown-item" href="#">Edit Profile</a>
+                                            <form method ="post" asp-controller="Acount" asp-action="Logout"> 
+                                                <button type="submit"class="btn-logout" style="margin-left: 23px;">
+                                                    <i class="feather icon-log-out"></i> Logout
+                                                </button>
+                                            </form>
+
+                                        </div>
+                                    </li>
+                                
+                            }
+
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </header>
+    <!--================ End Header Menu Area =================-->

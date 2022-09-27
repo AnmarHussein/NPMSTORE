@@ -1,0 +1,121 @@
+﻿@model Tuple<IEnumerable<NPMSTORE.Models.ProductsVM>, IEnumerable<NPMSTORE.Models.CategoryVM>>
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_LayoutDashbord.cshtml";
+}
+
+<!-- [ Main Content ] start -->
+<div class="row">
+    <!-- [ Typography ] start -->
+    <div class="col-sm-12">
+        <div class="card">
+            <div class="card-header">
+                <h5><img class="rounded-circle" style="width:40px;" src=@Url.Content("~/Images/" + @Model.Item1.First().ImgStore) alt="activity-user">Name : @Model.Item1.First().NameStore</h5>
+            </div>
+            <div class="card-body">
+                <h5 class="text-muted mb-4"><span class="text-c-green font-weight-bold">Describtion : </span> @Model.Item1.First().DetiStore</h5>
+                <form asp-action="Delete" method="post" class="d-flex justify-content-end"> 
+                    <input type="hidden" asp-for="@Model.Item1.First().IdStoe" name="Id" />
+                    <input type="submit" value="Delete" class="btn btn-danger btn-sm" /> 
+                </form>
+            </div>
+        </div>
+    </div>
+        <!-- [ statistics year chart ] start -->                             
+        <div class="col-xl-12 col-md-12 m-b-30">
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link active show" id="Categoreis-tab" data-toggle="tab" href="#Categoreis" role="tab" aria-controls="Categoreis" aria-selected="true">Categoreis</a>
+                </li>
+            </ul>
+            <div class="tab-content" id="myTabContent">
+                <div class="tab-pane fade active show" id="Categoreis" role="tabpanel" aria-labelledby="Categoreis-tab">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Controller</th>
+                                <th class="text-right"><a class=""></a></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (Model.Item2.Count() > 0)
+                            {
+                                @foreach (var item in Model.Item2)
+                                {
+
+                                    <tr>
+                                        <td> <h6 class="m-0">@item.cateName</h6> </td>
+                                        <td>
+                                            <a asp-controller="Stors" asp-action="CateDetails" asp-route-storeid="@Model.Item1.First().IdStoe"  asp-route-cateid="@item.cateId"  class="linkControle lable bg-info text-white f-12 "><i class="	fa fa-eye" aria-hidden="true"></i></a>
+                                            <a asp-controller="Stors" asp-action="CateDetails" asp-route-storeid="@Model.Item1.First().IdStoe"  asp-route-cateid="@item.cateId"  class="linkControle lable bg-danger text-white f-12 "><i class="fa fa-trash-o" aria-hidden="true"></i></a>
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                            else
+                            {
+                                <tr class="bg-danger my-4"> No Categories This Stors</tr>
+                            }
+                        </tbody>
+                    </table>
+                    <div class="d-flex justify-content-end">
+                        <a asp-controller="Categories" asp-action="Create" asp-route-id="@Model.Item1.First().IdStoe"  class="linkControle lable bg-primary text-white ">Create</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- [ statistics year chart ] start -->                             
+        <div class="col-xl-12 col-md-12 m-b-30">
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link active show" id="Categoreis-tab" data-toggle="tab" href="#Categoreis" role="tab" aria-controls="Categoreis" aria-selected="true">Products</a>
+                </li>
+            </ul>
+            <div class="tab-content" id="myTabContent">
+                <div class="tab-pane fade active show" id="Categoreis" role="tabpanel" aria-labelledby="Categoreis-tab">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Total Seals</th>
+                                <th>Controller</th>
+                                <th class="text-right"><a class=""></a></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        @foreach (var item in Model.Item1)
+                          {
+                                if (item.productlist.Count() > 0)
+                                {
+                                    @foreach (var prod in item.productlist)
+                                    {
+                                        <tr>
+                                            <td> <h6 class="m-0"></h6>@prod.Name </td>
+                                            <td> <h6 class="m-0"></h6>@(prod.Price * @prod.Seales) </td>
+                                            <td>
+                                                <a asp-controller="Products" asp-action="Edit" asp-route-id="@prod.Id" class="linkControle lable bg-primary text-white f-12 "><i class="fa fa-edit"></i></a>
+                                                <a asp-controller="Products" asp-action="Details" asp-route-id="@prod.Id" class="linkControle lable bg-info text-white f-12 "><i class="	fa fa-eye" aria-hidden="true"></i></a>
+                                                <a asp-controller="Products" asp-action="Details" asp-route-id="@prod.Id" class="linkControle lable bg-danger text-white f-12 "><i class="fa fa-trash-o" aria-hidden="true"></i></a>
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+                                else
+                                {
+                                    <tr class="alert alert-danger my-4" > No Products This Stors</tr>
+                                }
+                            }
+                        </tbody>
+                    </table>
+                    <div class="d-flex justify-content-end">
+                        <a asp-controller="Products" asp-action="Create"  class="linkControle lable bg-primary text-white ">Create</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> <!-- [ Main Content ] end -->
+<!-- [ Main Content ] end -->

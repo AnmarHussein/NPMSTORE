@@ -1,0 +1,197 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <title>Dashbord</title>
+        <!-- HTML5 Shim and Respond.js IE11 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 11]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+            <![endif]-->
+        <!-- Meta -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+        <!-- Favicon icon -->
+        <link rel="icon" href="~/assetsDashborde/images/favicon.ico" type="image/x-icon">
+        <!-- fontawesome icon -->
+        <link rel="stylesheet" href="~/assetsDashborde/fonts/fontawesome/css/fontawesome-all.min.css">
+        <script src="https://kit.fontawesome.com/9fce0fb708.js" crossorigin="anonymous"></script>
+        <!-- animation css -->
+        <link rel="stylesheet" href="~/assetsDashborde/plugins/animation/css/animate.min.css">
+        <link rel="stylesheet" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css" />
+
+        <!-- vendor css -->
+        <link rel="stylesheet" href="~/assetsDashborde/css/style.css">
+        <link rel="stylesheet" href="~/assetsDashborde/css/mystyle.css">
+
+    </head>
+<body>
+    <!-- [ Pre-loader ] start -->
+    <div class="loader-bg">
+        <div class="loader-track">
+            <div class="loader-fill"></div>
+        </div>
+    </div>
+    <!-- [ Pre-loader ] End -->
+
+    <!-- [ navigation menu ] start -->
+    <nav class="pcoded-navbar">
+        <div class="navbar-wrapper">
+            <div class="navbar-brand header-logo">
+                <a href="index.html" class="b-brand">
+                    <div class="b-bg">
+                        <i class="feather icon-trending-up"></i>
+                    </div>
+                    <span class="b-title">@(User.IsInRole("Admin") ? "DashBord Admin" : "DashBord User")</span>
+                </a>
+                <a class="mobile-menu" id="mobile-collapse" href="javascript:"><span></span></a>
+            </div>
+            <hr />
+            <div class="navbar-content scroll-div">
+                <ul class="nav pcoded-inner-navbar">
+                    @if(User.IsInRole("Admin"))
+                    {
+                        <li  class="nav-item active">
+                            <a asp-controller="Admin" asp-action="Index" class="nav-link "><span class="pcoded-micon"><i class="feather icon-home"></i></span><span class="pcoded-mtext">Dashboard</span></a>
+                        </li>
+                        <li  class="nav-item"><a asp-controller="Home" asp-action="Index" class="nav-link "><span class="pcoded-micon"><i class="feather icon-repeat"></i></span><span class="pcoded-mtext">Home Page</span></a></li>
+
+                        <li class="nav-item pcoded-hasmenu">
+                            <a href="javascript:" class="nav-link "><span class="pcoded-micon"><i class="feather icon-box"></i></span><span class="pcoded-mtext">All Matireals</span></a>
+                            <ul class="pcoded-submenu">
+                                <li class=""><a asp-controller="Customers"asp-action="Index">Users</a></li>
+                                <li class=""><a asp-controller="Roles"    asp-action="Index">Roles</a></li>
+                                <li class=""><a asp-controller="Categories" asp-action="Index">Categories</a></li>
+                                <li class=""><a asp-controller="Stors"    asp-action="Index">Stors</a></li>
+                                <li class=""><a asp-controller="Products" asp-action="Index">Products</a></li>
+                                <li class=""><a asp-controller="Orders"   asp-action="Index">Orders</a></li>
+                                <li class=""><a asp-controller="Payments" asp-action="Index">Payments</a></li>
+                            </ul>
+                        </li>
+                        <li  class="nav-item pcoded-hasmenu">
+                        <a href="javascript:" class="nav-link "><span class="pcoded-micon"><i class="feather icon-box"></i></span><span class="pcoded-mtext">Setting WebSite</span></a>
+                        <ul class="pcoded-submenu">
+                            <li class=""><a asp-controller="Admin" asp-action="Testimonials">Testimonials</a></li>
+                            <li class=""><a asp-controller="ContactUs" asp-action="Index">Contact-Us</a></li>
+                            <li class=""><a asp-controller="Admin" asp-action="EditHomePage">Edit Home Page</a></li>
+                            <li class=""><a asp-controller="Admin" asp-action="EditAboutUs">About US</a></li>
+                        </ul>
+                    </li>
+
+                    <li data-username="Charts Morris" class="nav-item"><a asp-controller="Admin" asp-action="reports" class="nav-link "><span class="pcoded-micon"><i class="feather icon-repeat"></i></span><span class="pcoded-mtext">Reports</span></a></li>
+                    <li data-username="Charts Morris" class="nav-item"><a asp-controller="Admin" asp-action="Search" class="nav-link "><span class="pcoded-micon"><i class="feather icon-search"></i></span><span class="pcoded-mtext">Search</span></a></li>
+
+                    }
+                    else if(User.IsInRole("User"))
+                    {
+                        <li  class="nav-item active">
+                            <a asp-controller="Users" asp-action="Index" class="nav-link "><span class="pcoded-micon"><i class="feather icon-home"></i></span><span class="pcoded-mtext">Dashboard</span></a>
+                        </li>
+                        <li  class="nav-item">
+                            <a asp-controller="Home" asp-action="Index" class="nav-link "><span class="pcoded-micon"><i class="feather icon-box"></i></span><span class="pcoded-mtext">Home Page</span></a>
+                        </li>
+                        <li class="nav-item pcoded-hasmenu">
+                            <a href="javascript:" class="nav-link "><span class="pcoded-micon"><i class="feather icon-box"></i></span><span class="pcoded-mtext">Setting Profile</span></a>
+                            <ul class="pcoded-submenu">
+                                <li class=""><a asp-controller="Users"asp-action="ShowProfile">Show Profile</a></li>
+                                <li class=""><a asp-controller="Users"asp-action="ChangePassword">ChangePassword</a></li>
+                                
+                            </ul>
+                        </li>
+                        <li  class="nav-item">
+                            <a asp-controller="Users" asp-action="ShowOrders" class="nav-link "><span class="pcoded-micon"><i class="feather icon-box"></i></span><span class="pcoded-mtext">Orders</span></a>
+                        </li>
+                        <li  class="nav-item">
+                            <a asp-controller="Users" asp-action="Testimonials" class="nav-link "><span class="pcoded-micon"><i class="feather icon-crosshair"></i></span><span class="pcoded-mtext">Testimonials</span></a>
+                        </li>
+                        <li  class="nav-item">
+                            <a asp-controller="Users" asp-action="reports" class="nav-link "><span class="pcoded-micon"><i class="feather icon-repeat"></i></span><span class="pcoded-mtext">Reports</span></a>
+                        </li>
+                    }
+
+                    
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!-- [ navigation menu ] end -->
+
+    <!-- [ Header ] start -->
+    <header class="navbar pcoded-header navbar-expand-lg navbar-light">
+        <div class="m-header">
+            <a class="mobile-menu" id="mobile-collapse1" href="javascript:"><span></span></a>
+            <a href="index.html" class="b-brand">
+                   <div class="b-bg">
+                       <i class="feather icon-trending-up"></i>
+                   </div>
+                   <span class="b-title">
+                       @(User.IsInRole("Admin") ? "Dashbord Admin" : "Dashbord User")
+                    </span>
+               </a>
+        </div>
+        <a class="mobile-menu" id="mobile-header" href="javascript:">
+            <i class="feather icon-more-horizontal"></i>
+        </a>
+        <div class="collapse navbar-collapse">
+            <ul class="navbar-nav mr-auto">
+                
+            </ul>
+            <ul class="navbar-nav ml-auto">
+
+                <li>
+                    
+                    <div class="dropdown drp-user">
+                        <a href="javascript:" class="dropdown-toggle pr-0" data-toggle="dropdown" >
+                            <img src=@Url.Content("~/Images/"+User.FindFirst("User_Image").Value) class="img-radius logo-dashbord-navbar" alt="User-Profile-Image">
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right profile-notification">
+                            <div class="pro-head">
+                                <img src=@Url.Content("~/Images/"+User.FindFirst("User_Image").Value) class="img-radius p-12 logo-dashbord-navbar" alt="User-Profile-Image">
+                                <span>@User.Identity.Name</span>
+                            </div>
+                            <ul class="pro-body">
+                                <li><a asp-controller="Customers" asp-action="Details" asp-route-id="@Int32.Parse(User.FindFirst("User_id").Value)" class="dropdown-item"><i class="feather icon-user"></i> Profile</a></li>
+                                <li><span class="dud-logout span-Logout" title="Logout">
+                                    
+                                    <form method ="post" asp-controller="Acount" asp-action="Logout"> 
+                                       <button type="submit"class="btn-logout">
+                                           <i class="feather icon-log-out"></i> Logout
+                                       </button>
+                                    </form>
+                                </span></li>
+                            </ul>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </header>
+    <!-- [ Header ] end -->
+    <!-- [ Main Content ] start -->
+    <div class="pcoded-main-container">
+        <div class="pcoded-wrapper">
+            <div class="pcoded-content">
+                <div class="pcoded-inner-content">
+                    <div class="main-body">
+                        <div class="page-wrapper">
+                            <!-- [ Main Content ] start -->
+                            @RenderBody()
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+        
+
+    <!-- Required Js -->
+    <script src="~/assetsDashborde/js/vendor-all.min.js"></script>
+	<script src="~/assetsDashborde/plugins/bootstrap/js/bootstrap.min.js"></script>
+    <script src="~/assetsDashborde/js/pcoded.min.js"></script>
+
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

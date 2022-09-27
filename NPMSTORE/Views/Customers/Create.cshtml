@@ -1,0 +1,113 @@
+﻿@model NPMSTORE.Models.Customer
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_LayoutDashbord.cshtml";
+}
+
+
+<div class="edit-users">
+    <div class="container">
+        <div class="edit_information">
+            <form asp-action="Create" asp-controller="Customers" method="POST" enctype="multipart/form-data">
+                <h3 class="text-center mb-3 mt-1 p-3">Edit Information</h3>
+                <div class="row">
+                    <div class="col-lg-6 col-xs-12">
+                        <div class="form-group">
+                            <label asp-for="FullName" class="profile_details_text">Full Name:</label>
+                            <input asp-for="FullName" class="form-control"  required>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                        <div class="form-group">
+                            <label class="profile_details_text">User Login: </label>
+                            <input  type="text" name="userName" class="form-control" value="" required>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                        <div class="form-group">
+                            <label  class="profile_details_text">Password:</label>
+                            <input name="password" type="password" class="form-control"  required>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                        <div class="form-group">
+                            <label class="profile_details_text">re-Password:</label>
+                            <input name="re_password" type="password" class="form-control" required>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 col-12">
+                        <div class="form-group">
+                            <label asp-for="Email" class="profile_details_text">Email Address:</label>
+                            <input asp-for="Email" class="form-control" value="" required>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-12">
+                        <div class="form-group">
+                            <label asp-for="PhoneNumber" class="profile_details_text">Phone Number:</label>
+                            <input asp-for="PhoneNumber"  class="form-control">@* pattern="[0-9]{3}-[0-9]{2}-[0-9]{5}" placeholder="000-00-00000"*@
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                        <div class="form-group">
+                            <label asp-for="Bdate" class="profile_details_text">Date Of Birth:</label>
+                            <input asp-for="Bdate" class="form-control" value="" required>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                        <div class="form-group">
+                            <label asp-for="Gender" class="profile_details_text">Gender:</label>
+                            <select asp-for="Gender" class="form-control" value="" required>
+                                <option value="1">Male</option>
+                                <option value="0">Female</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                        <div class="form-group">
+                            <label asp-for="ImageFile" class="profile_details_text">File:</label>
+                            <input asp-for="ImageFile" class="form-control" value="" required>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                        <div class="form-group">
+                            <label asp-for="Address1" class="profile_details_text">Adress 1:</label>
+                            <input asp-for="Address1" class="form-control" value="" required>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                        <div class="form-group">
+                            <label asp-for="Address2" class="profile_details_text">Adress 2:</label>
+                            <input asp-for="Address2" class="form-control" value="" required>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 submit text-right ">
+                        <div class="form-group">
+                            <input type="submit" class="btn btn-success" value="Submit">
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

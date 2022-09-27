@@ -1,0 +1,90 @@
+﻿@model NPMSTORE.Models.HomeVM
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_LayoutDashbord.cshtml";
+}
+
+<div class="edit-users">
+    <div class="container">
+        <div class="edit_information">
+            <form asp-action="EditAboutUs" method="post">
+                <h3 class="text-center mb-3 mt-1 p-3">Edit About Us</h3>
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" asp-for="aboutU.Id" />
+                <input type="hidden" asp-for="aboutU.HomeId" />
+                <div class="row">
+                    <div class="col-lg-6 col-xs-12">
+                        <div class="form-group">
+                            <label asp-for="aboutU.OurMission" class="profile_details_text"></label>
+                            <textarea asp-for="aboutU.OurMission" class="form-control"></textarea>
+                            <span asp-validation-for="aboutU.OurMission" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-xs-12">
+                        <div class="form-group">
+                            <label asp-for="aboutU.OurVision" class="profile_details_text"></label>
+                            <textarea asp-for="aboutU.OurVision" class="form-control" ></textarea>
+                            <span asp-validation-for="aboutU.OurVision" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div> 
+                <div class="row">
+                    <div class="col-lg-6 col-xs-12">
+                        <div class="form-group">
+                            <label asp-for="aboutU.AboutProject" class="profile_details_text"></label>
+                            <textarea asp-for="aboutU.AboutProject" class="form-control" ></textarea>
+                            <span asp-validation-for="aboutU.AboutProject" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-xs-12">
+                        <div class="form-group">
+                            <label asp-for="aboutU.WhyChoess" class="profile_details_text"></label>
+                            <textarea asp-for="aboutU.WhyChoess" class="form-control" ></textarea>
+                            <span asp-validation-for="aboutU.WhyChoess" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div> 
+                <div class="row">
+                    <div class="col-lg-6 col-xs-12">
+                        <div class="form-group">
+                            <label asp-for="aboutU.Email1" class="profile_details_text"></label>
+                            <input type="email" asp-for="aboutU.Email1" class="form-control" required />
+                            <span asp-validation-for="aboutU.Email1" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-xs-12">
+                        <div class="form-group">
+                            <label asp-for="aboutU.Email2" class="profile_details_text"></label>
+                            <input type="email" asp-for="aboutU.Email2" class="form-control" required/>
+                            <span asp-validation-for="aboutU.Email2" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div> 
+                <div class="row">
+                    <div class="col-lg-6 col-xs-12">
+                        <div class="form-group">
+                            <label asp-for="aboutU.PhoneNumber" class="profile_details_text"></label>
+                            <input asp-for="aboutU.PhoneNumber" class="form-control" required/>
+                            <span asp-validation-for="aboutU.PhoneNumber" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-xs-12">
+                        <div class="form-group">
+                            <label asp-for="aboutU.Fax" class="profile_details_text"></label>
+                            <input asp-for="aboutU.Fax" class="form-control" required/>
+                            <span asp-validation-for="aboutU.Fax" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div> 
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 submit text-right ">
+                        <div class="form-group">
+                            <input type="submit" class="btn btn-success" value="Save">
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

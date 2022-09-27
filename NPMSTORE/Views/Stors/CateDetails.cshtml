@@ -1,0 +1,73 @@
+﻿@model NPMSTORE.Models.AllProductInCategoryVM
+
+
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_LayoutDashbord.cshtml";
+}
+
+<!--[ Recent Users ] start-->
+<div class="col-xl-12 col-md-6">
+    <div class="card Recent-Users">
+        <div class="card-header">
+            <h5>Category @Model.cateName</h5>
+            <div class="d-flex justify-content-end">
+                <form asp-action="CateDetails"  class="d-inline" method="post">
+                    <input type="hidden" asp-for="@Model.storID" name="storeid"/>
+                    <input type="hidden" asp-for="@Model.cateId" name="cateid"/>
+                    <button type="submit" onclick="confirm(`Ary You Sure !`)"  class="linkControle lable bg-danger text-white f-12" style="border:none;"> 
+                        <i class="fa fa-trash-o" aria-hidden="true"></i> 
+                    </button>
+                </form> 
+            </div>
+        </div>
+        <div class="card-block px-0 py-0">
+            <div class="table-responsive">
+                <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>Products Name</th>
+                                <th>Products Price</th>
+                                <th>Products Seales</th>
+                                <th>Controller</th>
+                            </tr>
+                        </thead>
+                    <tbody>
+                        @if(Model.prodList.Count() > 0)
+                        @foreach (var item in Model.prodList)
+                        {
+                            <tr class="unread">
+                                <td>
+                                    <h6 class="m-0">
+                                            <img class="rounded-circle  m-r-10" style="width:40px;" src=@Url.Content("~/Images/" + item.Image) alt="activity-user">
+                                            @item.Name
+                                    </h6>
+                            </td>
+                            <td><h6 class="m-0"> @item.Price </h6></td>
+                            <td><h6 class="m-0"> @item.Seales </h6></td>
+                            
+                            <td>
+                                <a asp-controller="Products" asp-action="Edit" asp-route-id="@item.Id" class="linkControle lable theme-bg2 text-white f-12 "><i class="fa fa-edit"></i></a>
+                                <a asp-controller="Products" asp-action="Details" asp-route-id="@item.Id" class="linkControle lable theme-bg text-white f-12 "><i class="	fa fa-eye" aria-hidden="true"></i></a>
+
+                                <form asp-action="DeleteProducts" class="d-inline">
+                                    <input type="hidden" asp-for="@item.Id" name="Id"/>
+                                    <button type="submit" onclick="confirm(`Ary You Sure !`)"  class="linkControle lable bg-danger text-white f-12" style="border:none;"> 
+                                        <i class="fa fa-trash-o" aria-hidden="true"></i> 
+                                    </button>
+                                </form> 
+                            </td>
+                        </tr>
+                        }
+                                                
+                    </tbody>
+                </table>
+                <div class="d-flex justify-content-end">
+                    <a asp-action="Create" asp-controller="Products" class="btn btn-primary theme-bg2 text-white">Create</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

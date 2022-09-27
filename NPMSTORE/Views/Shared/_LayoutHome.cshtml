@@ -1,0 +1,63 @@
+﻿@using Microsoft.AspNetCore.Http;
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>@ViewData["Title"] - Market</title>
+    <link rel="icon" href="~/assetsHome/img/Fevicon.png" type="image/png">
+    <link rel="stylesheet" href="~/assetsHome/vendors/bootstrap/bootstrap.min.css">
+    <link rel="stylesheet" href="~/assetsHome/vendors/fontawesome/css/all.min.css">
+    <link rel="stylesheet" href="~/assetsHome/vendors/themify-icons/themify-icons.css">
+    <link rel="stylesheet" href="~/assetsHome/vendors/linericon/style.css">
+    <link rel="stylesheet" href="~/assetsHome/vendors/nice-select/nice-select.css">
+    <link rel="stylesheet" href="~/assetsHome/vendors/owl-carousel/owl.theme.default.min.css">
+    <link rel="stylesheet" href="~/assetsHome/vendors/owl-carousel/owl.carousel.min.css">
+    <link rel="stylesheet" href="~/assetsHome/vendors/nouislider/nouislider.min.css">
+
+
+
+
+    <link rel="stylesheet" href="~/assetsHome/css/style.css">
+    <link rel="stylesheet" href="~/assetsHome/css/mystyle.css">
+</head>
+<body>
+    
+   <!--================ Start Header Area [View Component]  =================-->
+
+    @await Component.InvokeAsync("Header")
+
+   <!--================ Start Header Area [View Component]  =================-->
+
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+    
+
+
+ <br /><br /><br /><br />
+       
+<!--================ Start footer Area [View Component] =================-->
+@await Component.InvokeAsync("Footer")
+<!--================ End footer Area [View Component] =================-->
+
+
+    
+
+    <script src="~/assetsHome/vendors/jquery/jquery-3.2.1.min.js"></script>
+    <script src="~/assetsHome/vendors/bootstrap/bootstrap.bundle.min.js"></script>
+    <script src="~/assetsHome/vendors/skrollr.min.js"></script>
+    <script src="~/assetsHome/vendors/owl-carousel/owl.carousel.min.js"></script>
+    <script src="~/assetsHome/vendors/nice-select/jquery.nice-select.min.js"></script>
+    <script src="~/assetsHome/vendors/jquery.ajaxchimp.min.js"></script>
+    <script src="~/assetsHome/vendors/mail-script.js"></script>
+    <script src="~/assetsHome/js/main.js"></script>
+
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

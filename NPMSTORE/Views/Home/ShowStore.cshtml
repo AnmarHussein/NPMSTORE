@@ -1,0 +1,64 @@
+﻿@model IEnumerable<NPMSTORE.Models.CategoryVM>
+
+
+@{
+    ViewData["Title"] = "Show Stoe";
+    Layout = "~/Views/Shared/_LayoutHome.cshtml";
+}
+<section style="box-shadow: rgb(0 0 0 / 24%) 0px 3px 8px;margin-top: 22px;">
+  <div class="container py-5">
+      
+    <div class="row justify-content-center mb-3">
+      <div class="col-md-12 col-xl-10">
+            <div id='search-box'>
+                <form asp-controller="Home" asp-action="ShowStore" id='search-form' >
+                    <input id='search-text' name='KeyName' placeholder='Name Stroe ...' type='text'/>
+                    <button id='search-button' type='submit'><span>Search</span></button>
+                </form>
+              </div>
+        </div>
+      </div>
+
+    @foreach (var item in Model)
+   {
+       <div class="row justify-content-center mb-3">
+          <div class="col-md-12 col-xl-10">
+            <div class="card shadow-0 border rounded-3">
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-md-12 col-lg-3 col-xl-3 mb-4 mb-lg-0">
+                    <div class="bg-image hover-zoom ripple rounded ripple-surface">
+                      <img src=@Url.Content("~/Images/" + item.stor.Image) class="w-100" height="131"/>
+                      <a href="#!">
+                        <div class="hover-overlay">
+                          <div class="mask" style="background-color: rgba(253, 253, 253, 0.15);"></div>
+                        </div>
+                      </a>
+                    </div>
+                  </div>
+                  <div class="col-md-6 col-lg-6 col-xl-6">
+                    <h5>@item.stor.Name</h5>
+               
+                    <div class="mb-2 text-muted small">
+                        @foreach (var cate in item.category)
+                       {
+                           <span>@cate.Name</span>
+                           <span class="text-primary"> • </span>
+                       }
+                    </div>
+                    <p class="text-truncate mb-4 mb-md-0"style="white-space: normal">
+                      @item.stor.Detailes .
+                    </p>
+                  </div>
+                  
+                    <div class="d-flex div-show-store mt-4">
+                      <a asp-controller="Home" asp-action="allProducts" asp-route-storeid ="@item.stor.Id" class="btn btn-primary btn-sm button-show-store">Shop Products</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+   }
+  </div>
+</section>

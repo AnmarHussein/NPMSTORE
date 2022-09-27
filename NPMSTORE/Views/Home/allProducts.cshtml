@@ -1,0 +1,68 @@
+﻿@model IEnumerable<NPMSTORE.Models.StoreCategoryVM>
+
+@{
+    ViewData["Title"] = "All Products";
+    Layout = "~/Views/Shared/_LayoutHome.cshtml";
+    var cate = Model.Select(c => c.category).Distinct().ToList();
+    var store = Model.Select(c => c.store).Distinct().ToList();
+}
+
+
+<!-- ================ category section start ================= -->		  
+  <section class="section-margin--small mb-5">
+    <div class="container">
+      <div class="row">
+        <div class="col-xl-12 col-lg-12 col-md-7">
+          <!-- Start Filter Bar -->
+          <div class="filter-bar d-flex flex-wrap align-items-center"> 
+              <div class="input-group filter-bar-search" style="margin-left: 25%;">
+               <form asp-controller="Home" asp-action="allProducts" class="d-flex" style="width: 100%;">
+                    <input type="text" id="myInput" name="keySearch" placeholder="Search By Name,Store,Category,Products" class="w-50">
+                    <div class="input-group-append">
+                      <button type="submit"><i class="ti-search"></i></button>
+                    </div>
+                </form>  
+              </div>
+            </div>
+          <!-- End Filter Bar -->
+          <!-- Start Best Seller -->
+          <section class="lattest-product-area pb-40 category-list">
+              @if(ViewBag.Message != null)
+                {
+                    <div class="alert alert-primary">@ViewBag.Message</div>
+                }
+                    
+            <div class="row">
+                @foreach (var item in Model)
+               {
+                   <div class="col-md-6 col-lg-4">
+                        <div class="card text-center card-product" id="myTable">
+                          <div class="card-product__img">
+                            <img class="card-img" src=@Url.Content("~/Images/"+ item.product.Image) style="width:255px;height:271px" alt="">
+                            <ul class="card-product__imgOverlay">
+                              <li><button onclick="location.href='@Url.Action("DeitaelsProducts", "Home",new{id = item.product.Id} )'" type="button"><i class="ti-eye"></i></button></li>
+                              <li>
+                                  <form asp-controller="Home" asp-action="addToCart" method="post">
+                                      <input type="hidden" name="id" value="@item.product.Id">
+                                      <input type="hidden" name="quantity" value="1">
+                                    <button type="submit"><i class="ti-shopping-cart"></i></button>
+                                  </form>
+                              </li>
+                            </ul>
+                          </div>
+                          <div class="card-body">
+                            <p>@item.store.Name / @item.category.Name</p>
+                            <h4 class="card-product__title"><a href="#">@item.product.Name</a></h4>
+                            <p class="card-product__price">@item.product.Price.ToString("c")</p>
+                          </div>
+                        </div>
+                   </div>
+               }
+            </div>
+          </section>
+          <!-- End Best Seller -->
+        </div>
+      </div>
+    </div>
+  </section>
+<!-- ================ category section end ================= -->
